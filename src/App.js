@@ -4,6 +4,7 @@ import SideMenu from "./components/SideMenu";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import About from "./components/About";
+import Home from "./components/Home";
 
 function App() {
 
@@ -13,6 +14,10 @@ function App() {
       element: <Body/>,
       errorElement: <h1>404 Error</h1>,
       children: [
+        {
+          path: '/',
+          element: <Home/>
+        },
         {
           path: 'login',
           element: <Login/>

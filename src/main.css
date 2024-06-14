@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 body {
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Outfit", sans-serif;
+  @apply m-0;
+  @apply box-border;
+  @apply font-outfit;
 }

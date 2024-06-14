@@ -5,7 +5,7 @@ const SideMenu = () => {
 
     return (
         <div className='flex flex-col bg-black items-center text-white h-screen w-[14%]'>
-            <div className='w-full flex items-center justify-center'>
+            <div className='w-full flex justify-center'>
                 <img className='w-44 mt-5 mb-5' alt='logo' src={logo} />
             </div>
             <div className='flex flex-col gap-2 w-full pl-6'>
