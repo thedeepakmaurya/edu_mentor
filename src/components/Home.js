@@ -10,8 +10,8 @@ const Home = () => {
     };
 
     return (
-        <div className='flex items-center justify-center h-fit'>
-            <div className='flex w-[70%] p-5 mt-36 rounded-2xl'>
+        <div className='flex items-center justify-center h-screen'>
+            <div className='flex w-[70%] p-5 rounded-2xl'>
                 <div className='w-1/2'>
                     <img alt='intro' src={intro} />
                 </div>
