@@ -8,11 +8,11 @@ const Login = () => {
         <form>
           <div className='w-full mt-2 flex flex-col'>
             <label className='font-bold text-md  '>Email</label>
-            <input className='outline-none focus:border-oxfordBlue pl-2 h-8  border border-platinum rounded-lg required ' name='email' placeholder='Enter registered email'/>
+            <input className='outline-none focus:border-oxfordBlue pl-2 h-8  border border-platinum rounded-lg  ' name='email' placeholder='Enter registered email' required/>
           </div>
           <div className='w-full mt-2 flex flex-col'>
             <label className='font-bold text-md  '>Password</label>
-            <input className='outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-lg required ' name='password' placeholder='Enter password'/>
+            <input className='outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-lg  ' name='password' placeholder='Enter password' required/>
           </div>
         </form>
         <button className='mt-4 w-full bg-oxfordBlue text-white rounded-lg p-2 '>Login</button>
