@@ -1,6 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/login');
+  }
+
   return (
     <div className='flex items-center justify-center h-fit'>
       <div className='w-[50%] mt-24 rounded-2xl p-10 h-[450px] bg-white'>
@@ -40,8 +49,7 @@ const Register = () => {
               <input className='outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-lg required '/>
             </div>
             <div className='w-1/2'>
-               <br/>
-              <button className='bg-oxfordBlue p-1 pl-9 pr-9 rounded-lg text-white'>Continue</button>
+              <button className='bg-oxfordBlue p-2 pl-9 pr-9 rounded-lg text-white' onClick={handleSubmit}>Continue</button>
             </div>
           </div>
         </form>
