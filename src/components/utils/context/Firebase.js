@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { createContext, useContext } from "react";
-
+import { createContext, useContext, useState, useEffect } from "react";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const FirebaseContext = createContext(null);
 
@@ -11,15 +11,29 @@ const firebaseConfig = {
     storageBucket: "edumentor-7be2b.appspot.com",
     messagingSenderId: "326583828239",
     appId: "1:326583828239:web:78afa1486c1f4121d1487a"
-  };
+};
 
 export const useFirebase = () => useContext(FirebaseContext);
 
 const firebaseApp = initializeApp(firebaseConfig)
+const firebaseAuth = getAuth(firebaseApp);
 
-export const FirebaseProvider = ({children}) => {
+export const FirebaseProvider = ({ children }) => {
+
+    useEffect(() => {
+     onAuthStateChanged(firebaseAuth, user => {
+        
+     })
+    },[])
+
+    const signupUser = (email, password) =>
+        createUserWithEmailAndPassword(firebaseAuth, email, password);
+
+    const signinUser = (email, password) => signInWithEmailAndPassword(firebaseAuth, email, password);
+
+
     return (
-        <FirebaseContext.Provider >
+        <FirebaseContext.Provider value={{ signupUser, signinUser }}>
             {children}
         </FirebaseContext.Provider>
     )
