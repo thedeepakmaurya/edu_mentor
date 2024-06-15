@@ -1,10 +1,12 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Body from "./Body";
+import Body from "./components/Body";
 import SideMenu from "./components/SideMenu";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import About from "./components/About";
-import Home from "./components/Home";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import Home from "./components/pages/Home";
+import AdminDashboard from "./components/AdminDashboard";
+import TeacherDashboard from "./components/TeacherDashboard";
+import StudentDashboard from "./components/StudentDashboard";
 
 function App() {
 
@@ -27,9 +29,17 @@ function App() {
           element: <Register/>
         },
         {
-          path: 'about',
-          element: <About/>
-        }
+          path: 'admin',
+          element: <AdminDashboard/>
+        },
+        {
+          path: 'teacher',
+          element: <TeacherDashboard/>
+        },
+        {
+          path: 'Student',
+          element: <StudentDashboard/>
+        },
       ]
       
     }

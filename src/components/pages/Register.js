@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useFirebase } from './utils/context/Firebase';
+import { useFirebase } from '../../utils/Firebase';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {

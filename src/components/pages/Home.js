@@ -1,5 +1,5 @@
 import React from 'react';
-import intro from '../assets/img/intro.svg';
+import intro from '../../assets/img/intro.svg';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
