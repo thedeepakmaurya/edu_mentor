@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFirebase } from './utils/context/Firebase';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
   const firebase = useFirebase();
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,6 +27,12 @@ const Register = () => {
     await firebase.signupUser(formData.email, formData.password);
     navigate('/login')
   }
+
+  useEffect(() => {
+    if (firebase.isLoggedIn) {
+      navigate('/')
+    }
+  }, [firebase, navigate])
 
   return (
     <div className='flex items-center justify-center h-screen'>

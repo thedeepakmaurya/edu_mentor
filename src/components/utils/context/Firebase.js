@@ -20,9 +20,12 @@ const firebaseAuth = getAuth(firebaseApp);
 
 export const FirebaseProvider = ({ children }) => {
 
+    const [user, setUser] = useState(null);
+
     useEffect(() => {
      onAuthStateChanged(firebaseAuth, user => {
-        
+         if(user) setUser(user);
+         else setUser(null);
      })
     },[])
 
@@ -32,8 +35,10 @@ export const FirebaseProvider = ({ children }) => {
     const signinUser = (email, password) => signInWithEmailAndPassword(firebaseAuth, email, password);
 
 
+    const isLoggedIn = user? true : false;
+
     return (
-        <FirebaseContext.Provider value={{ signupUser, signinUser }}>
+        <FirebaseContext.Provider value={{ signupUser, signinUser, isLoggedIn }}>
             {children}
         </FirebaseContext.Provider>
     )
