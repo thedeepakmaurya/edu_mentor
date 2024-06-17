@@ -5,7 +5,6 @@ import { useFirebase } from '../utils/Firebase'
 const SideMenu = () => {
 
     const firebase = useFirebase();
-    console.log(firebase)
 
     const [isDropdown, setIsDropdown] = useState(false);
 
@@ -33,12 +32,16 @@ const SideMenu = () => {
                         )
                     }
                 </div>
-                <h2 className='font-semibold text-lg '><i className='bx bx-user pr-3 align-middle'></i> <a href='/login'>Login</a></h2>
-                <h2 className='font-semibold text-lg'><i className='bx bx-edit-alt pr-3 align-middle'></i> <a href='/register'>Register</a></h2>
+                {!firebase.isLoggedIn && (
+                    <>
+                        <h2 className='font-semibold text-lg '><i className='bx bx-user pr-3 align-middle'></i> <a href='/login'>Login</a></h2>
+                        <h2 className='font-semibold text-lg'><i className='bx bx-edit-alt pr-3 align-middle'></i> <a href='/register'>Register</a></h2>
+                    </>
+                )}
             </div>
 
             <div className='w-[14%] pl-6  bottom-5 fixed'>
-                {firebase.isLoggedIn && <h2 className='font-semibold text-lg'><i className='bx bx-log-out pr-3 align-middle'></i> Logout</h2>}
+                {firebase.isLoggedIn && <h2 className='font-semibold text-lg cursor-pointer' onClick={() => firebase.signOutUser()}><i className='bx bx-log-out pr-3 align-middle'></i> Logout</h2>}
             </div>
         </div>
     )

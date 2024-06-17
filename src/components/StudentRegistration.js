@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useFirebase } from '../../utils/Firebase';
+import React, { useState } from 'react'
+import { useFirebase } from '../utils/Firebase';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -11,7 +11,7 @@ const Register = () => {
     firstname: '',
     lastname: '',
     contact: '',
-    addresss: '',
+    address: '',
     state: '',
     email: '',
     password: '',
@@ -21,28 +21,22 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await firebase.studentData(formData.firstname, formData.lastname, formData.email, formData.contact, formData.address, formData.state, formData.phone, formData.password)
     await firebase.signupUser(formData.email, formData.password);
     navigate('/login')
   }
 
-  useEffect(() => {
-    if (firebase.isLoggedIn) {
-      navigate('/')
-    }
-  }, [firebase, navigate])
-
   return (
     <div className='flex items-center justify-center h-screen'>
-      <div className='w-[50%]  rounded-2xl p-10 h-[450px] bg-white'>
-        <h1 className='font-bold text-xl mb-2'>Student Registration</h1>
+      <div className='w-[50%]  rounded-2xl p-10 h-[450px] bg-white shadow-md shadow-gray-400'>
+        <h1 className='font-bold text-xl mb-2'>Student Registration!</h1>
         <form className=' flex flex-col' onSubmit={handleSubmit}>
           <div className='flex gap-10 w-full mt-2'>
             <div className='w-1/2 flex flex-col'>
               <label className='font-bold text-md '>First Name</label>
-              <input type='text' className='outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-lg ' name='firstname' placeholder='Enter first name'  value={formData.firstname} onChange={handleChange} required />
+              <input type='text' className='outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-lg ' name='firstname' placeholder='Enter first name' value={formData.firstname} onChange={handleChange} required />
             </div>
             <div className='w-1/2 flex flex-col'>
               <label className='font-bold text-md '>Last Name</label>

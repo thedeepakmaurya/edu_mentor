@@ -1,12 +1,16 @@
 import React from 'react';
-import intro from '../../assets/img/intro.svg';
+import intro from '../assets/img/intro.svg';
 import { useNavigate } from 'react-router-dom';
+import { useFirebase } from '../utils/Firebase';
 
 const Home = () => {
     const navigate = useNavigate();
 
-    const handleRegisterClick = () => {
-        navigate('/register'); 
+    const firebase = useFirebase()
+    console.log(firebase)
+
+    const handleClick = () => {
+        navigate('/register');
     };
 
     return (
@@ -17,9 +21,9 @@ const Home = () => {
                 </div>
                 <div className='w-1/2'>
                     <h1 className='font-bold text-5xl text-oxfordBlue'>Reserve your <span className='text-orange'>mentors</span> today to enhance your knowledge and skills.</h1>
-                    <button type='button' className='bg-orange mt-2 text-white font-bold rounded-lg p-2 pl-4 pr-4' onClick={handleRegisterClick}>
+                    {firebase.isLogin === false && <button type='button' className='bg-orange mt-2 text-white font-bold rounded-lg p-2 pl-4 pr-4' onClick={handleClick}>
                         Register Now!
-                    </button>
+                    </button>}
                 </div>
             </div>
         </div>

@@ -1,9 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Body from "./components/Body";
 import SideMenu from "./components/SideMenu";
-import Login from "./components/pages/Login";
-import Register from "./components/pages/Register";
-import Home from "./components/pages/Home";
+import Login from "./components/Login";
+import Register from "./components/StudentRegistration";
+import Home from "./components/Home";
 import AdminDashboard from "./components/AdminDashboard";
 import TeacherDashboard from "./components/TeacherDashboard";
 import StudentDashboard from "./components/StudentDashboard";
@@ -13,35 +13,35 @@ function App() {
   const appRouter = createBrowserRouter([
     {
       path: '/',
-      element: <Body/>,
+      element: <Body />,
       errorElement: <h1>404 Error</h1>,
       children: [
         {
           path: '/',
-          element: <Home/>
+          element: <Home />
         },
         {
           path: 'login',
-          element: <Login/>
+          element: <Login />
         },
         {
           path: 'register',
-          element: <Register/>
+          element: <Register />
         },
         {
           path: 'admin',
-          element: <AdminDashboard/>
+          element: <AdminDashboard />
         },
         {
           path: 'teacher',
-          element: <TeacherDashboard/>
+          element: <TeacherDashboard />
         },
         {
           path: 'Student',
-          element: <StudentDashboard/>
+          element: <StudentDashboard />
         },
       ]
-      
+
     }
   ])
 
@@ -49,7 +49,7 @@ function App() {
   return (
     <div className="flex">
       <SideMenu />
-      <RouterProvider router={appRouter}/>
+      <RouterProvider router={appRouter} />
     </div>
   );
 }
