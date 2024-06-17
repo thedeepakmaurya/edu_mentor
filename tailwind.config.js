@@ -8,6 +8,7 @@ module.exports = {
       },
       colors: {
         oxfordBlue: '#14213D',
+        oxfordBlueLight: '#1e315b',
         orange: '#FCA311',
         platinum: '#E5E5E5'
       }
