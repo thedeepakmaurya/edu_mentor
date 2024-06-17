@@ -4,7 +4,9 @@ import Header from './Header'
 const TeacherDashboard = () => {
   return (
     <div>
-            <Header/>
+      <Header />
+      <p>Under maintainance...</p>
+
     </div>
   )
 }

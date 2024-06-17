@@ -5,6 +5,7 @@ const StudentDashboard = () => {
   return (
     <div>
       <Header/>
+      <p>Under maintainance...</p>
     </div>
   )
 }

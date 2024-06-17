@@ -74,8 +74,21 @@ export const FirebaseProvider = ({ children }) => {
         })
     }
 
+    //add student in firestore
+    const handleAddStudent = async (firstname, lastname, email, contact, address, state, password) => {
+        return await addDoc(collection(firestore, 'teachers'), {
+            firstname,
+            lastname,
+            email,
+            contact,
+            address,
+            state,
+            password,
+        })
+    }
+
     return (
-        <FirebaseContext.Provider value={{ signupUser, signinUser, signOutUser, isLoggedIn, handleAddTeacher }}>
+        <FirebaseContext.Provider value={{ signupUser, signinUser, signOutUser, isLoggedIn, handleAddTeacher, handleAddStudent }}>
             {children}
         </FirebaseContext.Provider>
     )

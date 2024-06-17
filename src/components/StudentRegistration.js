@@ -23,7 +23,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await firebase.studentData(studentData.firstname, studentData.lastname, studentData.email, studentData.contact, studentData.address, studentData.state, studentData.phone, studentData.password)
+    await firebase.handleAddStudent(studentData.firstname, studentData.lastname, studentData.email, studentData.contact, studentData.address, studentData.state, studentData.contact, studentData.password)
     await firebase.signupUser(studentData.email, studentData.password);
     navigate('/login')
   }
@@ -32,7 +32,7 @@ const Register = () => {
     <div className='flex items-center justify-center h-screen'>
       <div className='w-[50%]  rounded-lg p-5 h-auto bg-white shadow-lg shadow-gray-400'>
         <h1 className='font-bold text-xl mb-2'>Student Registration!</h1>
-        <student className=' flex flex-col' onSubmit={handleSubmit}>
+        <form className=' flex flex-col' onSubmit={handleSubmit}>
           <div className='flex gap-10 w-full mt-2'>
             <div className='w-1/2 flex flex-col'>
               <label className='font-bold text-md '>First Name</label>
@@ -70,7 +70,7 @@ const Register = () => {
               <button className='bg-oxfordBlue p-2 mt-2 pl-9 pr-9 rounded-sm text-white'>Create Account</button>
             </div>
           </div>
-        </student>
+        </form>
       </div>
 
     </div>
