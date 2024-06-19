@@ -47,7 +47,7 @@ function App() {
 
 
   return (
-    <div className="flex overflow-hidden">
+    <div className="flex max-h-screen">
       <SideMenu />
       <RouterProvider router={appRouter} />
     </div>

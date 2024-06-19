@@ -28,20 +28,18 @@ const firebaseAuth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp); 
 
 // Helper function to determine user role
-const getUserRole = async (uid) => {
-    const adminDoc = await getDoc(doc(firestore, "admin", uid));
+const getUserRole = async (id) => {
+    const adminDoc = await getDoc(doc(firestore, "admin", id));
     if (adminDoc.exists()) return "admin";
 
-    const teacherDoc = await getDoc(doc(firestore, "teachers", uid));
+    const teacherDoc = await getDoc(doc(firestore, "teachers", id));
     if (teacherDoc.exists()) return "teacher";
 
-    const studentDoc = await getDoc(doc(firestore, "students", uid));
+    const studentDoc = await getDoc(doc(firestore, "students", id));
     if (studentDoc.exists()) return "student";
 
     return null;
 };
-
-
 
 // Firbase Provider
 export const FirebaseProvider = ({ children }) => {
@@ -49,14 +47,13 @@ export const FirebaseProvider = ({ children }) => {
     //user State
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
-    console.log(user)
-    console.log(role)
 
     //chekck if user login or not
     useEffect(() => {
         onAuthStateChanged(firebaseAuth, async (user) => {
             if (user) {
-                const userRole = await getUserRole(user.uid);
+                console.log(user.email)
+                const userRole = await getUserRole(user.email);
                 setUser(user);
                 setRole(userRole);
             } else {
