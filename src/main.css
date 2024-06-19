@@ -4,8 +4,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-body {
+* {
   @apply m-0;
   @apply box-border;
   @apply font-outfit;
+}
+
+*::-webkit-scrollbar {
+  display: none; 
 }
