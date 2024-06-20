@@ -31,8 +31,7 @@ const AdminDashboard = () => {
     if (editMode) {
       await handleUpdateTeacher(currentTeacherId);
     } else {
-      await firebase.handleAddTeacher(teacherData.firstname, teacherData.lastname, teacherData.email, teacherData.password, teacherData.department, teacherData.subject, teacherData.role);
-      await firebase.signupUser(teacherData.email, teacherData.password);
+      await firebase.signupTeacher(teacherData.email, teacherData.password, teacherData.role, teacherData.firstname, teacherData.lastname, teacherData.department, teacherData.subject);
     }
     setTeacherData({
       firstname: '',

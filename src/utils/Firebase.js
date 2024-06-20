@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { addDoc, doc, collection, getFirestore, getDocs, getDoc, deleteDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import {  doc, collection, getFirestore, getDocs, getDoc, deleteDoc, setDoc } from "firebase/firestore";
 
 
 //Firebase Context
@@ -25,7 +25,7 @@ const firebaseApp = initializeApp(firebaseConfig)
 //initilize authentication
 const firebaseAuth = getAuth(firebaseApp);
 //initialize firestore
-const firestore = getFirestore(firebaseApp); 
+const firestore = getFirestore(firebaseApp);
 
 // Helper function to determine user role
 const getUserRole = async (id) => {
@@ -47,13 +47,13 @@ export const FirebaseProvider = ({ children }) => {
     //user State
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
+    console.log(role)
 
     //chekck if user login or not
     useEffect(() => {
         onAuthStateChanged(firebaseAuth, async (user) => {
             if (user) {
-                console.log(user.email)
-                const userRole = await getUserRole(user.email);
+                const userRole = await getUserRole(user.uid);
                 setUser(user);
                 setRole(userRole);
             } else {
@@ -61,13 +61,47 @@ export const FirebaseProvider = ({ children }) => {
                 setRole(null);
             }
         });
-    },[])
+    }, [])
 
     const isLoggedIn = user ? true : false;
 
     //student signup function
-    const signupUser = (email, password) =>
-        createUserWithEmailAndPassword(firebaseAuth, email, password);
+    const signupStudent = async (email, password, role, firstname, lastname, contact, address, state) => {
+        const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+        const user = userCredential.user;
+
+        await setDoc(doc(firestore, 'students', user.uid), {
+            email: user.email,
+            firstname: firstname,
+            lastname: lastname,
+            contact: contact,
+            address: address,
+            state: state,
+            role: role,
+            uid: user.uid
+        });
+
+        signOutUser();
+    }
+
+
+    //Signup teacher
+    const signupTeacher = async (email, password, role, firstname, lastname, department, subject) => {
+        const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+        const user = userCredential.user;
+
+        await setDoc(doc(firestore, 'teachers', user.uid), {
+            email: user.email,
+            firstname: firstname,
+            lastname: lastname,
+            department: department,
+            subject: subject,
+            role: role,
+            uid: user.uid
+        });
+
+        signOutUser();
+    }
 
     //student signin function
     const signinUser = (email, password) => signInWithEmailAndPassword(firebaseAuth, email, password);
@@ -76,21 +110,6 @@ export const FirebaseProvider = ({ children }) => {
     const signOutUser = () => {
         firebaseAuth.signOut().then(() => {
             setUser(null);
-        })
-    }
-
-    //add teacher function in admin pannel
-    const handleAddTeacher = async (firstname, lastname, email, password, department, subject, role) => {
-        return await addDoc(collection(firestore, 'teachers'), {
-            firstname,
-            lastname,
-            email,
-            password,
-            department,
-            subject,
-            role,
-            userID: user.uid,
-            userEmail: user.email,
         })
     }
 
@@ -103,28 +122,15 @@ export const FirebaseProvider = ({ children }) => {
     const listAllStudents = () => {
         return getDocs(collection(firestore, 'students'))
     }
- 
+
     // delete teacher
     const deleteTeacher = (id) => {
         return deleteDoc(doc(firestore, 'teachers', id))
     }
 
-    //add student in firestore
-    const handleAddStudent = async (firstname, lastname, email, contact, address, state, password, role) => {
-        return await addDoc(collection(firestore, 'students'), {
-            firstname,
-            lastname,
-            email,
-            contact,
-            address,
-            state,
-            password,
-            role,
-        })
-    }
 
     return (
-        <FirebaseContext.Provider value={{ signupUser, signinUser, signOutUser, isLoggedIn, handleAddTeacher, listAllTeachers, handleAddStudent, listAllStudents, deleteTeacher }}>
+        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role }}>
             {children}
         </FirebaseContext.Provider>
     )

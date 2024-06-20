@@ -24,8 +24,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await firebase.handleAddStudent(studentData.firstname, studentData.lastname, studentData.email, studentData.contact, studentData.address, studentData.state, studentData.contact, studentData.password, studentData.role)
-    await firebase.signupUser(studentData.email, studentData.password, studentData.role);
+    await firebase.signupStudent(studentData.email, studentData.password, studentData.role, studentData.firstname, studentData.lastname, studentData.contact, studentData.address, studentData.state);
     navigate('/login')
   }
 
@@ -66,7 +65,7 @@ const Register = () => {
             <div className='w-1/2 mb-3 flex flex-col'>
               <label className='font-bold text-md'>Password</label>
               <input type='text' className='outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-sm ' name='password' placeholder='Enter password' value={studentData.password} onChange={handleChange} required />
-              <input type='text' className='hidden outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-sm ' name='role' placeholder='Enter role' value={studentData.role} readOnly/>
+              <input type='text' className='hidden outline-none focus:border-oxfordBlue pl-2 h-8 border border-platinum rounded-sm ' name='role' placeholder='Enter role' value={studentData.role} readOnly />
             </div>
             <div className='w-1/2'>
               <button className='bg-oxfordBlue p-2 mt-2 pl-9 pr-9 rounded-sm text-white'>Create Account</button>
