@@ -89,7 +89,8 @@ const AdminDashboard = () => {
   }, [firebase])
 
   return (
-    <div>
+    firebase.role === 'admin' ?
+    (<div>
       <Header />
       <div className='flex flex-1 m-5 gap-5'>
         <div className='w-full bg-oxfordBlue text-white pt-3 h-auto rounded-lg p-5 shadow-lg shadow-gray-400'>
@@ -169,7 +170,11 @@ const AdminDashboard = () => {
           }
           </div>
       </div>
-    </div>
+    </div>) :
+
+    (<div className='flex items-center justify-center h-screen'>
+      <h1 className='font-bold text-3xl'>You are not authorized!</h1>
+    </div>)
   )
 }
 
