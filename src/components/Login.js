@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useFirebase } from '../utils/Firebase'
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
   const firebase = useFirebase();
-  const navigate = useNavigate();
-  console.log(firebase)
+  const navigate = useNavigate(' ');
 
   const [formData, setFormData] = useState({
     email: '',
@@ -20,19 +19,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await firebase.signinUser(formData.email, formData.password);
+
+    if (firebase.role === 'admin'){
+      navigate('/admin')
+    } else  navigate('/')
+
   }
 
-  useEffect(() => {
-    if (firebase.isLoggedIn) {
-      if (firebase.user === 'admin') {
-        navigate('/admin')
-      } else if (firebase.user === 'teacher') {
-        navigate('/teacher')
-      } else if (firebase.user === 'student') {
-        navigate('/student')
-      } else navigate('/')
-    }
-  }, [firebase, navigate])
 
   return (
     <div className='flex gap-5 items-center justify-center h-screen'>

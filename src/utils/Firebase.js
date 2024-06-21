@@ -44,10 +44,10 @@ const getUserRole = async (id) => {
 // Firbase Provider
 export const FirebaseProvider = ({ children }) => {
 
+
     //user State
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
-    console.log(role)
 
     //chekck if user login or not
     useEffect(() => {
@@ -103,8 +103,11 @@ export const FirebaseProvider = ({ children }) => {
         signOutUser();
     }
 
-    //student signin function
-    const signinUser = (email, password) => signInWithEmailAndPassword(firebaseAuth, email, password);
+    // signin function
+    const signinUser = (email, password) => {
+        signInWithEmailAndPassword(firebaseAuth, email, password);
+
+    }
 
     //signOut user
     const signOutUser = () => {
