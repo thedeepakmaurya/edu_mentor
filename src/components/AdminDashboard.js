@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import { useFirebase } from '../utils/Firebase';
 import { doc, updateDoc } from 'firebase/firestore';
-import secure  from '../assets/img/secure.svg'
+import Unauthorized from './Unauthorized';
 
 const AdminDashboard = () => {
 
+  //state variables
   const [teacherData, setTeacherData] = useState({
     firstname: '',
     lastname: '',
@@ -23,10 +24,12 @@ const AdminDashboard = () => {
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
 
+  //function to change input value
   const handleChange = (e) => {
     setTeacherData({ ...teacherData, [e.target.name]: e.target.value });
   }
 
+  //function to add teacher data
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (editMode) {
@@ -49,11 +52,13 @@ const AdminDashboard = () => {
   };
 
 
+  // function to delete teacher data
   const handleDelete = async (id) => {
     await firebase.deleteTeacher(id)
     firebase.listAllTeachers().then((teachers) => setTeachers(teachers.docs))
   }
 
+  // function to edit teacher data
   const handleEdit = (teacher) => {
     setTeacherData({
       firstname: teacher.data().firstname,
@@ -61,13 +66,14 @@ const AdminDashboard = () => {
       email: teacher.data().email,
       department: teacher.data().department,
       subject: teacher.data().subject,
-      password: '', // Password won't be edited for security reasons
+      password: '', 
       role: teacher.data().role,
     });
     setEditMode(true);
     setCurrentTeacherId(teacher.id);
   };
 
+  //function to update teacher data
   const handleUpdateTeacher = async (id) => {
     try {
       const teacherRef = doc(firebase.firestore, 'teachers', id);
@@ -84,6 +90,7 @@ const AdminDashboard = () => {
     }
   };
 
+  // function to get teacher and student list 
   useEffect(() => {
     firebase.listAllTeachers().then((teachers) => setTeachers(teachers.docs))
     firebase.listAllStudents().then((students) => setStudents(students.docs))
@@ -91,9 +98,14 @@ const AdminDashboard = () => {
 
   return (
     firebase.role === 'admin' ?
+
+    // if admin
       (<div>
+      {/* dashboard header */}
         <Header />
         <div className='flex flex-1 m-5 gap-5'>
+
+        {/* add teacher table */}
           <div className='w-full bg-oxfordBlue text-white pt-3 h-auto rounded-lg p-5 shadow-lg shadow-gray-400'>
             <form onSubmit={handleSubmit} className='flex items-center justify-center mt-3 gap-2 '>
               <h1 className='font-bold text-center text-xs'>{editMode ? 'EDIT TEACHER' : 'ADD TEACHER'}</h1>
@@ -111,8 +123,10 @@ const AdminDashboard = () => {
             </form>
           </div>
         </div>
+
+        {/* teacher list */}
         <div className=' m-5 bg-white h-60 overflow-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
-          <h1 className='font-bold text-xl'>Teachers List!</h1>
+          <h1 className='font-light text-xl'>TEACHER LIST</h1>
           <div className='mt-2 w-full'>
             <div className='flex items-center gap-10 font-semibold'>
               <h2 className='w-5'>No.</h2>
@@ -139,8 +153,10 @@ const AdminDashboard = () => {
             }
           </div>
         </div>
+
+        {/* student list */}
         <div className=' m-5 bg-white flex-1 overflow-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
-          <h1 className='font-bold text-xl'>Student Requests!</h1>
+          <h1 className='font-light text-xl'>STUDENT REQUEST</h1>
           <div className='mt-2 w-full'>
             <div className='flex items-center gap-10 font-semibold'>
               <h2 className='w-5'>No.</h2>
@@ -173,10 +189,10 @@ const AdminDashboard = () => {
         </div>
       </div>) :
 
-      (<div className='flex flex-col items-center justify-center h-screen'>
-        <img className='w-80 h-80' alt='unauthorized' src={secure}/>
-        <h1 className='font-bold text-2xl text-oxfordBlue'><span className='text-orange'>Unauthorized</span> access!</h1>
-      </div>)
+      //If not admin
+      (
+        <Unauthorized/>
+      )
   )
 }
 
