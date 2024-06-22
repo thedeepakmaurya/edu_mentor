@@ -66,7 +66,7 @@ const AdminDashboard = () => {
       email: teacher.data().email,
       department: teacher.data().department,
       subject: teacher.data().subject,
-      password: '', 
+      password: '',
       role: teacher.data().role,
     });
     setEditMode(true);
@@ -99,13 +99,13 @@ const AdminDashboard = () => {
   return (
     firebase.role === 'admin' ?
 
-    // if admin
+      // if admin
       (<div>
-      {/* dashboard header */}
+        {/* dashboard header */}
         <Header />
         <div className='flex flex-1 m-5 gap-5'>
 
-        {/* add teacher table */}
+          {/* add teacher table */}
           <div className='w-full bg-oxfordBlue text-white pt-3 h-auto rounded-lg p-5 shadow-lg shadow-gray-400'>
             <form onSubmit={handleSubmit} className='flex items-center justify-center mt-3 gap-2 '>
               <h1 className='font-bold text-center text-xs'>{editMode ? 'EDIT TEACHER' : 'ADD TEACHER'}</h1>
@@ -139,14 +139,16 @@ const AdminDashboard = () => {
             {
               teachers.map((teacher, index) => {
                 return (
-                  <div key={teacher.id} className='flex items-center gap-10 text-nowrap'>
-                    <p className='w-5'>{index + 1}</p>
-                    <p className='w-24'>{teacher.data().firstname}</p>
-                    <p className='w-24'>{teacher.data().lastname}</p>
-                    <p className='w-24'>{teacher.data().department}</p>
-                    <p className='w-24'>{teacher.data().subject}</p>
-                    <p className='text-green-500 cursor-pointer' onClick={() => handleEdit(teacher)}><i className='bx bx-edit-alt align-middle'></i></p>
-                    <p className='text-red-500 cursor-pointer' onClick={() => handleDelete(teacher.id)}><i className='bx bx-trash align-middle'></i></p>
+                  <div className='flex gap-10' key={teacher.id} >
+                    <form className='flex items-center gap-10 text-nowrap'>
+                      <input className='w-5' value={index + 1} readOnly />
+                      <input className='w-24' value={teacher.data().firstname} readOnly />
+                      <input className='w-24' value={teacher.data().lastname} readOnly />
+                      <input className='w-24' value={teacher.data().department} readOnly />
+                      <input className='w-24' value={teacher.data().subject} readOnly />
+                    </form>
+                    <p className='text-green-500 cursor-pointer' onClick={() => handleEdit(teacher)}><i className='bx bx-pencil align-middle'></i></p>
+                    <p className='text-red-500 cursor-pointer' onClick={() => handleDelete(teacher.id)}><i className='bx bx-trash  align-middle'></i></p>
                   </div>
                 );
               })
@@ -171,16 +173,18 @@ const AdminDashboard = () => {
             {
               students.map((student, index) => {
                 return (
-                  <div key={index} className='flex items-center gap-10 text-nowrap'>
-                    <p className='w-5'>{index + 1}</p>
-                    <p className='w-24'>{student.data().firstname}</p>
-                    <p className='w-24'>{student.data().lastname}</p>
-                    <p className='w-36'>{student.data().email}</p>
-                    <p className='w-24'>{student.data().contact}</p>
-                    <p className='w-24'>{student.data().address}</p>
-                    <p className='w-24'>{student.data().state}</p>
-                    <p className='text-green-500 cursor-pointer'><i className='bx bx-check align-middle' ></i></p>
-                    <p className='text-red-500 cursor-pointer'><i className='bx bx-x align-middle' ></i></p>
+                  <div className='flex gap-10' key={student.id}>
+                    <form className='flex items-center gap-10 text-nowrap'>
+                      <input className='w-5' value={index + 1} readOnly />
+                      <input className='w-24' value={student.data().firstname} readOnly />
+                      <input className='w-24' value={student.data().lastname} readOnly />
+                      <input className='w-36' value={student.data().email} readOnly />
+                      <input className='w-24' value={student.data().contact} readOnly />
+                      <input className='w-24' value={student.data().address} readOnly />
+                      <input className='w-24' value={student.data().state} readOnly />
+                    </form>
+                    <p className='text-green-500 cursor-pointer'><i className='bx bx-check bx-sm align-middle' ></i></p>
+                    <p className='text-red-500 cursor-pointer'><i className='bx bx-x bx-sm align-middle' ></i></p>
                   </div>
                 )
               })
@@ -191,7 +195,7 @@ const AdminDashboard = () => {
 
       //If not admin
       (
-        <Unauthorized/>
+        <Unauthorized />
       )
   )
 }

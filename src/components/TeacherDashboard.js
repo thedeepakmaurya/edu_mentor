@@ -14,8 +14,10 @@ const TeacherDashboard = () => {
       (
         <div>
           <Header />
-          <p>Under maintainance...</p>
+          <div>
+            <h1>Student Dashboard</h1>
 
+          </div>
         </div>
       )
 
@@ -28,3 +30,5 @@ const TeacherDashboard = () => {
 }
 
 export default TeacherDashboard
+
+
