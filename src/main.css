@@ -1,13 +1,13 @@
+/* src/styles/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 * {
-  @apply m-0;
-  @apply box-border;
-  @apply font-outfit;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Reddit Sans", sans-serif;
 }
 
 *::-webkit-scrollbar {
