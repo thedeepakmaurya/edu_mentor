@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Body from "./components/Body";
-import SideMenu from "./components/SideMenu";
 import Login from "./components/Login";
 import Register from "./components/StudentRegistration";
 import Home from "./components/Home";
@@ -47,8 +46,7 @@ function App() {
 
 
   return (
-    <div className="flex max-h-screen">
-      <SideMenu />
+    <div>
       <RouterProvider router={appRouter} />
     </div>
   );

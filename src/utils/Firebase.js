@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import {  doc, collection, getFirestore, getDocs, getDoc, deleteDoc, setDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { doc, collection, getFirestore, getDocs, getDoc, deleteDoc, setDoc, addDoc } from "firebase/firestore";
 
 
 //Firebase Context
@@ -43,7 +43,6 @@ const getUserRole = async (id) => {
 
 // Firbase Provider
 export const FirebaseProvider = ({ children }) => {
-
 
     //user State
     const [user, setUser] = useState(null);
@@ -130,10 +129,20 @@ export const FirebaseProvider = ({ children }) => {
     const deleteTeacher = (id) => {
         return deleteDoc(doc(firestore, 'teachers', id))
     }
-
-
+    
+    
+    //add appointments
+    const scheduleAppointments = async (teacherId, date) => {
+        return await addDoc(collection(firestore, 'appointments'), {
+            teacherId,
+            date,
+            studentID: user.uid,
+        });
+    };
+    
+    
     return (
-        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role }}>
+        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role, scheduleAppointments }}>
             {children}
         </FirebaseContext.Provider>
     )

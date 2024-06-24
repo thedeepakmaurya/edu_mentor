@@ -7,7 +7,6 @@ const Home = () => {
     const navigate = useNavigate();
 
     const firebase = useFirebase()
-    console.log(firebase)
 
     const handleClick = () => {
         navigate('/register');

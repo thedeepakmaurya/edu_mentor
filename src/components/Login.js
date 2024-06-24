@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useFirebase } from '../utils/Firebase'
 import { useNavigate } from 'react-router-dom';
 
@@ -16,15 +16,28 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await firebase.signinUser(formData.email, formData.password);
 
-    if (firebase.role === 'admin'){
-      navigate('/admin')
-    } else  navigate('/')
-
   }
+
+  useEffect(() => {
+    switch (firebase.role) {
+      case 'admin':
+        navigate('/admin')
+        break;
+      case 'student':
+        navigate('/student')
+        break;
+      case 'teacher':
+        navigate('/teacher')
+        break;
+      default:
+    }
+
+  }, [firebase.role, navigate])
 
 
   return (

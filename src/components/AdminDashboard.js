@@ -107,7 +107,7 @@ const AdminDashboard = () => {
 
           {/* add teacher table */}
           <div className='w-full bg-oxfordBlue text-white pt-3 h-auto rounded-lg p-5 shadow-lg shadow-gray-400'>
-            <form onSubmit={handleSubmit} className='flex items-center justify-center mt-3 gap-2 '>
+            <form onSubmit={() => handleSubmit()} className='flex items-center justify-center mt-3 gap-2 '>
               <h1 className='font-bold text-center text-xs'>{editMode ? 'EDIT TEACHER' : 'ADD TEACHER'}</h1>
               <input type='text' className='outline-none w-1/6 border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange pl-2 h-8 rounded-sm ' name='firstname' placeholder='Enter first name' onChange={handleChange} value={teacherData.firstname} required />
               <input type='text' className='outline-none w-1/6 border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange pl-2 h-8 rounded-sm ' name='lastname' placeholder='Enter last name' onChange={handleChange} value={teacherData.lastname} required />
@@ -119,7 +119,7 @@ const AdminDashboard = () => {
               {!editMode && (
                 <input type='text' className='outline-none w-1/6 border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange pl-2 h-8 rounded-sm ' name='password' placeholder='Enter password' onChange={handleChange} value={teacherData.password} required />
               )}
-              <button className='text-white bg-orange w-1/6 rounded-sm font-bold p-1 '>{editMode ? 'Update' : 'Save'}</button>
+              <button type='submit' className='text-white bg-orange w-1/6 rounded-sm font-bold p-1 '>{editMode ? 'Update' : 'Save'}</button>
             </form>
           </div>
         </div>
@@ -134,7 +134,6 @@ const AdminDashboard = () => {
               <h2 className='w-24'> Last Name</h2>
               <h2 className='w-24'> Department</h2>
               <h2 className='w-24'> Subject</h2>
-              <hr className='border border-b'></hr>
             </div>
             {
               teachers.map((teacher, index) => {
@@ -168,7 +167,6 @@ const AdminDashboard = () => {
               <h2 className='w-24'> Contact</h2>
               <h2 className='w-24'> Address</h2>
               <h2 className='w-24'> State</h2>
-              <hr className='border border-b'></hr>
             </div>
             {
               students.map((student, index) => {
