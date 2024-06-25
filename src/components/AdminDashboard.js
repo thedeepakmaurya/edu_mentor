@@ -4,6 +4,7 @@ import { useFirebase } from '../utils/Firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import Unauthorized from './Unauthorized';
 import { Toaster, toast } from 'react-hot-toast';
+import Loader from './Loader';
 
 const AdminDashboard = () => {
 
@@ -99,6 +100,10 @@ const AdminDashboard = () => {
     firebase.listAllStudents().then((students) => setStudents(students.docs))
     firebase.listAllAppointments().then((appointments) => setAppointments(appointments.docs))
   }, [firebase])
+
+  if(!firebase.user){
+    return <Loader/>
+  }
 
   return (
     firebase.role === 'admin' ?
@@ -201,8 +206,7 @@ const AdminDashboard = () => {
                       <input className='w-24' value={student.data().address} readOnly />
                       <input className='w-24' value={student.data().state} readOnly />
                     </form>
-                    <p className='text-green-500 cursor-pointer'><i className='bx bx-check bx-sm align-middle' ></i></p>
-                    <p className='text-red-500 cursor-pointer'><i className='bx bx-x bx-sm align-middle' ></i></p>
+                    <p className='text-red-500 cursor-pointer'><i className='bx bx-trash align-middle' ></i></p>
                   </div>
                 )
               })

@@ -3,6 +3,7 @@ import Header from './Header'
 import { useFirebase } from '../utils/Firebase';
 import Unauthorized from './Unauthorized';
 import { Toaster, toast } from 'react-hot-toast';
+import Loader from './Loader';
 
 const StudentDashboard = () => {
 
@@ -65,6 +66,10 @@ const StudentDashboard = () => {
     return 'Unknown';
   };
 
+
+  if(!firebase.user){
+    return <Loader/>
+  }
 
   return (
 

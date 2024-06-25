@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Unauthorized from './Unauthorized'
 import { useFirebase } from '../utils/Firebase';
+import Loader from './Loader';
 
 const TeacherDashboard = () => {
 
@@ -43,6 +44,10 @@ const TeacherDashboard = () => {
     return 'Unknown';
   };
 
+
+  if(!firebase.user){
+    return <Loader/>
+  }
 
   return (
 
