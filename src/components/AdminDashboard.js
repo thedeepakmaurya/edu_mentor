@@ -24,6 +24,7 @@ const AdminDashboard = () => {
   const firebase = useFirebase();
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
+  const [appointments, setAppointments] = useState([]);
 
   //function to change input value
   const handleChange = (e) => {
@@ -96,6 +97,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     firebase.listAllTeachers().then((teachers) => setTeachers(teachers.docs))
     firebase.listAllStudents().then((students) => setStudents(students.docs))
+    firebase.listAllAppointments().then((appointments) => setAppointments(appointments.docs))
   }, [firebase])
 
   return (
@@ -105,7 +107,23 @@ const AdminDashboard = () => {
       (<div>
         {/* dashboard header */}
         <Header />
-        <div className='flex m-5 gap-5'>
+        <div className='flex flex-col m-5 gap-5'>
+
+        {/* Total Appointments & teachers */}
+        <div className='flex w-full gap-5'>
+              <div className='flex flex-col items-center justify-center w-1/3 bg-orange h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
+                <h1 className='font-light text-xl text-white'>TOTAL TEACHERS</h1>
+                <p className='font-bold text-2xl text-white'>{teachers.length}</p>
+              </div>
+              <div className='flex flex-col items-center justify-center w-1/3 bg-oxfordBlue h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
+                <h1 className='font-light text-xl text-white'>TOTAL STUDENTS</h1>
+                <p className='font-bold text-2xl text-white'>{students.length}</p>
+              </div>
+              <div className='flex flex-col items-center justify-center w-1/3 bg-white h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
+                <h1 className='font-light text-xl '>TOTAL APPOINTMENTS</h1>
+                <p className='font-bold text-2xl'>{appointments.length}</p>
+              </div>
+            </div>
 
           {/* add teacher table */}
           <div className='w-full bg-oxfordBlue text-white pt-3 h-auto rounded-lg p-5 shadow-lg shadow-gray-400'>
@@ -159,7 +177,7 @@ const AdminDashboard = () => {
 
         {/* student list */}
         <div className=' m-5 bg-white flex-1 overflow-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
-          <h1 className='font-light text-xl'>STUDENT REQUEST</h1>
+          <h1 className='font-light text-xl'>STUDENTS LIST</h1>
           <div className='mt-2 w-full'>
             <div className='flex items-center gap-10 font-semibold'>
               <h2 className='w-5'>No.</h2>

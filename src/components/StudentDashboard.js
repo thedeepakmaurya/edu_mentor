@@ -10,20 +10,25 @@ const StudentDashboard = () => {
   const firebase = useFirebase();
   const [search, setSearch] = useState('');
   const [teachers, setTeachers] = useState([]);
-  const [appointments, setAppointments] = useState([]);
   const [filterdTeachers, setFilterdTeachers] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+  const [filteredAppointments, setFilteredAppointments] = useState( );
   const [date, setDate] = useState({});
 
-  // function to get teacher and student list 
-  useEffect(() => {
-    firebase.listAllTeachers().then((teachers) => { setTeachers(teachers.docs); setFilterdTeachers(teachers.docs) })
-    firebase.listAllAppointments().then((appointments) => { setAppointments(appointments.docs) })
-  }, [firebase])
 
-  // function to filter teachers
+  // function to get teacher and appointment list 
   useEffect(() => {
-    setFilterdTeachers(teachers.filter((teacher) => teacher.data().firstname.toLowerCase().includes(search.toLowerCase()) || teacher.data().lastname.toLowerCase().includes(search.toLowerCase()) || teacher.data().department.toLowerCase().includes(search.toLowerCase()) || teacher.data().subject.toLowerCase().includes(search.toLowerCase())))
-  }, [search, teachers])
+    if (firebase.user && firebase.user.uid) {
+      firebase.listAllTeachers().then((teachers) => { setTeachers(teachers.docs); setFilterdTeachers(teachers.docs) })
+      setFilterdTeachers(teachers.filter((teacher) => teacher.data().firstname.toLowerCase().includes(search.toLowerCase()) || teacher.data().lastname.toLowerCase().includes(search.toLowerCase()) || teacher.data().department.toLowerCase().includes(search.toLowerCase()) || teacher.data().subject.toLowerCase().includes(search.toLowerCase())))
+      firebase.listAllAppointments().then((appointments) => { setAppointments(appointments.docs) })
+      let appoint = []
+      appoint = appointments.filter((appointments) => appointments.data().studentID === firebase.user.uid);
+      setFilteredAppointments(appoint)
+    }
+  }, [])
+
+
 
   // Function to handle date change for a specific teacher
   const handleDateChange = (teacherId, newDate) => {
@@ -68,9 +73,22 @@ const StudentDashboard = () => {
       (<div>
         <Header />
 
-        {/* Search bar */}
         <div className='flex items-center justify-center flex-col m-5'>
-          <div className='flex items-center justify-center h-14 rounded-lg  shadow-lg shadow-gray-400 w-[60%] bg-oxfordBlue gap-5 '>
+
+          {/* Total Appointments & Students */}
+          <div className='flex w-full gap-5'>
+            <div className='flex flex-col items-center justify-center w-1/2 bg-orange h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
+              <h1 className='font-light text-xl text-white'>APPOINTMENTS</h1>
+              <p className='font-bold text-2xl text-white'>{filteredAppointments.length}</p>
+            </div>
+            <div className='flex flex-col items-center justify-center w-1/2 bg-oxfordBlue h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
+              <h1 className='font-light text-xl text-white'>TEACHERS</h1>
+              <p className='font-bold text-2xl text-white'>{teachers.length}</p>
+            </div>
+          </div>
+
+          {/* Search bar */}
+          <div className='flex items-center justify-center h-14 rounded-lg  shadow-lg shadow-gray-400 w-full bg-oxfordBlue gap-5 mt-5'>
             <input className='w-[70%] text-white border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange outline-none' type='text' name='search' onChange={(e) => setSearch(e.target.value)} value={search} placeholder='Search mentor/ subject/ department' required />
           </div>
 
@@ -117,7 +135,7 @@ const StudentDashboard = () => {
                 <h2 className='w-24'> Date</h2>
               </div>
               {
-                appointments.map((appointment, index) => {
+                Array.isArray(filteredAppointments) && filteredAppointments.map((appointment, index) => {
                   return (
                     <div className='flex gap-10' key={appointment.id} >
                       <form className='flex items-center gap-10 text-nowrap'>
