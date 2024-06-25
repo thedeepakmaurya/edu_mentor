@@ -178,7 +178,7 @@ const AdminDashboard = () => {
                       <input className='w-24' value={teacher.data().department} readOnly />
                       <input className='w-24' value={teacher.data().subject} readOnly />
                     </form>
-                    <p className='text-green-500 cursor-pointer' onClick={() => handleEdit(teacher)}><i className='bx bx-pencil align-middle'></i></p>
+                    <p className='text-green-500 cursor-pointer' onClick={() => handleEdit(teacher)}><i className='bx bx-edit-alt align-middle'></i></p>
                     <p className='text-red-500 cursor-pointer' onClick={() => handleDelete(teacher.id)}><i className='bx bx-trash  align-middle'></i></p>
                   </div>
                 );
