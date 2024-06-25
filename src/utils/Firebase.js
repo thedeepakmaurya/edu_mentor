@@ -134,6 +134,11 @@ export const FirebaseProvider = ({ children }) => {
         return deleteDoc(doc(firestore, 'teachers', id))
     }
 
+    // delete student
+    const deleteStudent = (id) => {
+        return deleteDoc(doc(firestore, 'students', id))
+    }
+
 
     //add appointments
     const scheduleAppointments = async (teacherId, date) => {
@@ -146,7 +151,7 @@ export const FirebaseProvider = ({ children }) => {
 
 
     return (
-        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role, user, scheduleAppointments, listAllAppointments }}>
+        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, deleteStudent, role, user, scheduleAppointments, listAllAppointments }}>
             {children}
         </FirebaseContext.Provider>
     )

@@ -62,6 +62,13 @@ const AdminDashboard = () => {
     firebase.listAllTeachers().then((teachers) => setTeachers(teachers.docs))
   }
 
+  // function to delete student data
+  const handleStudentDelete = async (id) => {
+    await firebase.deleteStudent(id)
+    toast.success('Student deleted successfully')
+    firebase.listAllStudents().then((students) => setStudents(students.docs))
+  }
+
   // function to edit teacher data
   const handleEdit = (teacher) => {
     setTeacherData({
@@ -206,7 +213,7 @@ const AdminDashboard = () => {
                       <input className='w-24' value={student.data().address} readOnly />
                       <input className='w-24' value={student.data().state} readOnly />
                     </form>
-                    <p className='text-red-500 cursor-pointer'><i className='bx bx-trash align-middle' ></i></p>
+                    <p className='text-red-500 cursor-pointer' onClick={() => handleStudentDelete(student.id)}><i className='bx bx-trash align-middle' ></i></p>
                   </div>
                 )
               })
