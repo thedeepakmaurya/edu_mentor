@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { doc, collection, getFirestore, getDocs, getDoc, deleteDoc, setDoc, addDoc } from "firebase/firestore";
 
 
@@ -51,17 +51,17 @@ export const FirebaseProvider = ({ children }) => {
 
     //chekck if user login or not
     useEffect(() => {
-            onAuthStateChanged(firebaseAuth, async (user) => {
-                if (user) {
-                    const userRole = await getUserRole(user.uid);
-                    setUser(user);
-                    setRole(userRole);
-                } else {
-                    setUser(null);
-                    setRole(null);
-                }
-            });
-          
+        onAuthStateChanged(firebaseAuth, async (user) => {
+            if (user) {
+                const userRole = await getUserRole(user.uid);
+                setUser(user);
+                setRole(userRole);
+            } else {
+                setUser(null);
+                setRole(null);
+            }
+        });
+
     }, []);
 
     const isLoggedIn = user ? true : false;
@@ -82,8 +82,6 @@ export const FirebaseProvider = ({ children }) => {
             uid: user.uid
         });
 
-        await signOut(firebaseAuth);
-        
     }
 
 
@@ -126,6 +124,11 @@ export const FirebaseProvider = ({ children }) => {
         return getDocs(collection(firestore, 'students'))
     }
 
+    //get appointments
+    const listAllAppointments = () => {
+        return getDocs(collection(firestore, 'appointments'))
+    }
+
     // delete teacher
     const deleteTeacher = (id) => {
         return deleteDoc(doc(firestore, 'teachers', id))
@@ -143,7 +146,7 @@ export const FirebaseProvider = ({ children }) => {
 
 
     return (
-        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role, user, scheduleAppointments }}>
+        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role, user, scheduleAppointments, listAllAppointments }}>
             {children}
         </FirebaseContext.Provider>
     )
