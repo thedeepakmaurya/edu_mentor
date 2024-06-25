@@ -20,7 +20,7 @@ const StudentDashboard = () => {
   // function to filter teachers
   useEffect(() => {
     setFilterdTeachers(teachers.filter((teacher) => teacher.data().firstname.toLowerCase().includes(search.toLowerCase()) || teacher.data().lastname.toLowerCase().includes(search.toLowerCase()) || teacher.data().department.toLowerCase().includes(search.toLowerCase()) || teacher.data().subject.toLowerCase().includes(search.toLowerCase())))
-  },[search, teachers])
+  }, [search, teachers])
 
   // Function to handle date change for a specific teacher
   const handleDateChange = (teacherId, newDate) => {
@@ -32,10 +32,11 @@ const StudentDashboard = () => {
 
 
   // Function to schedule appointment
-  const handleAppointment = (teacherId, e) => {
+  const handleAppointment = (e, teacherId) => {
     e.preventDefault();
-    firebase.scheduleAppointments(teacherId, date[teacherId]);
-  }
+    const selectedDate = date[teacherId];
+    firebase.scheduleAppointments(teacherId, selectedDate);
+  };
 
 
   return (
@@ -48,11 +49,11 @@ const StudentDashboard = () => {
         {/* Search bar */}
         <div className='flex items-center justify-center flex-col m-5'>
           <div className='flex items-center justify-center h-14 rounded-lg  shadow-lg shadow-gray-400 w-[60%] bg-oxfordBlue gap-5 '>
-          <input className='w-[70%] text-white border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange outline-none' type='text' name='search' onChange={(e) => setSearch(e.target.value)} value={search} placeholder='Serch mentor/ subject/ department' required />
-        </div>
+            <input className='w-[70%] text-white border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange outline-none' type='text' name='search' onChange={(e) => setSearch(e.target.value)} value={search} placeholder='Search mentor/ subject/ department' required />
+          </div>
 
           {/* teacher list */}
-          <div className=' w-full m-5 bg-white h-60 overflow-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
+          <div className=' w-full m-5 bg-white h-auto overflow-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
             <h1 className='font-light text-xl'>MENTOR LIST</h1>
             <div className='mt-2 w-full'>
               <div className='flex items-center gap-10 font-semibold'>
@@ -67,17 +68,17 @@ const StudentDashboard = () => {
                 filterdTeachers.map((teacher, index) => {
                   return (
                     <div className='flex gap-10' key={teacher.id} >
-                      <form className='flex items-center gap-10 text-nowrap'>
+                      <form onSubmit={(e) => handleAppointment(e, teacher.id)} className='flex items-center gap-10 text-nowrap'>
                         <input className='w-5' value={index + 1} readOnly />
                         <input className='w-24' value={teacher.data().firstname} readOnly />
                         <input className='w-24' value={teacher.data().lastname} readOnly />
                         <input className='w-24' value={teacher.data().department} readOnly />
                         <input className='w-24' value={teacher.data().subject} readOnly />
-                        <input className='w-auto outline-none' type='date' onChange={(e) => handleDateChange(teacher.id, e.target.value)} value={date[teacher.id]} required />
-                        <button type='submit' className='border-b border-b-oxfordBlue hover:border-b-orange w-20 rounded-sm' onSubmit={() => handleAppointment(teacher.id)}>Schedule</button>
+                        <input className='w-auto outline-none' type='date' onChange={(e) => handleDateChange(teacher.id, e.target.value)} value={date[teacher.id] || ' '} required />
+                        <button type='submit' className='border-b border-b-oxfordBlue hover:border-b-orange w-20 rounded-sm'>Schedule</button>
                       </form>
                     </div>
-                  );
+                  )
                 })
               }
             </div>
@@ -93,3 +94,5 @@ const StudentDashboard = () => {
 }
 
 export default StudentDashboard
+
+

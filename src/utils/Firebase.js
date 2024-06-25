@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, collection, getFirestore, getDocs, getDoc, deleteDoc, setDoc, addDoc } from "firebase/firestore";
 
 
@@ -48,19 +48,21 @@ export const FirebaseProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
 
+
     //chekck if user login or not
     useEffect(() => {
-        onAuthStateChanged(firebaseAuth, async (user) => {
-            if (user) {
-                const userRole = await getUserRole(user.uid);
-                setUser(user);
-                setRole(userRole);
-            } else {
-                setUser(null);
-                setRole(null);
-            }
-        });
-    }, [])
+            onAuthStateChanged(firebaseAuth, async (user) => {
+                if (user) {
+                    const userRole = await getUserRole(user.uid);
+                    setUser(user);
+                    setRole(userRole);
+                } else {
+                    setUser(null);
+                    setRole(null);
+                }
+            });
+          
+    }, []);
 
     const isLoggedIn = user ? true : false;
 
@@ -80,7 +82,8 @@ export const FirebaseProvider = ({ children }) => {
             uid: user.uid
         });
 
-        signOutUser();
+        await signOut(firebaseAuth);
+        
     }
 
 
@@ -99,13 +102,11 @@ export const FirebaseProvider = ({ children }) => {
             uid: user.uid
         });
 
-        signOutUser();
     }
 
     // signin function
     const signinUser = (email, password) => {
         signInWithEmailAndPassword(firebaseAuth, email, password);
-
     }
 
     //signOut user
@@ -129,8 +130,8 @@ export const FirebaseProvider = ({ children }) => {
     const deleteTeacher = (id) => {
         return deleteDoc(doc(firestore, 'teachers', id))
     }
-    
-    
+
+
     //add appointments
     const scheduleAppointments = async (teacherId, date) => {
         return await addDoc(collection(firestore, 'appointments'), {
@@ -139,10 +140,10 @@ export const FirebaseProvider = ({ children }) => {
             studentID: user.uid,
         });
     };
-    
-    
+
+
     return (
-        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role, scheduleAppointments }}>
+        <FirebaseContext.Provider value={{ signupStudent, signinUser, signOutUser, isLoggedIn, signupTeacher, listAllTeachers, listAllStudents, deleteTeacher, role, user, scheduleAppointments }}>
             {children}
         </FirebaseContext.Provider>
     )

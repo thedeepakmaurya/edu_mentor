@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import logo from '../assets/img/logo.png'
 import { useFirebase } from '../utils/Firebase'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Toaster, toast } from 'react-hot-toast';
 
 const SideMenu = () => {
 
     const firebase = useFirebase();
+    const navigate = useNavigate();
 
     const [isDropdown, setIsDropdown] = useState(false);
 
@@ -42,7 +44,8 @@ const SideMenu = () => {
             </div>
 
             <div className='w-[14%] pl-6  bottom-5 fixed'>
-                {firebase.isLoggedIn && <h2 className='font-semibold text-lg cursor-pointer' onClick={() => firebase.signOutUser()}><i className='bx bx-log-out pr-3 align-middle'></i> Logout</h2>}
+                {firebase.isLoggedIn && <h2 className='font-semibold text-lg cursor-pointer' onClick={() => {firebase.signOutUser(); toast.success('Logout Successfully'); navigate('/');} }><i className='bx bx-log-out pr-3 align-middle'></i> Logout</h2>}
+                <Toaster />
             </div>
         </div>
     )

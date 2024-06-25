@@ -3,6 +3,7 @@ import Header from './Header'
 import { useFirebase } from '../utils/Firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import Unauthorized from './Unauthorized';
+import { Toaster, toast } from 'react-hot-toast';
 
 const AdminDashboard = () => {
 
@@ -55,6 +56,7 @@ const AdminDashboard = () => {
   // function to delete teacher data
   const handleDelete = async (id) => {
     await firebase.deleteTeacher(id)
+    toast.success('Teacher deleted successfully')
     firebase.listAllTeachers().then((teachers) => setTeachers(teachers.docs))
   }
 
@@ -103,11 +105,11 @@ const AdminDashboard = () => {
       (<div>
         {/* dashboard header */}
         <Header />
-        <div className='flex flex-1 m-5 gap-5'>
+        <div className='flex m-5 gap-5'>
 
           {/* add teacher table */}
           <div className='w-full bg-oxfordBlue text-white pt-3 h-auto rounded-lg p-5 shadow-lg shadow-gray-400'>
-            <form onSubmit={() => handleSubmit()} className='flex items-center justify-center mt-3 gap-2 '>
+            <form onSubmit={handleSubmit} className='flex items-center justify-center mt-3 gap-2 '>
               <h1 className='font-bold text-center text-xs'>{editMode ? 'EDIT TEACHER' : 'ADD TEACHER'}</h1>
               <input type='text' className='outline-none w-1/6 border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange pl-2 h-8 rounded-sm ' name='firstname' placeholder='Enter first name' onChange={handleChange} value={teacherData.firstname} required />
               <input type='text' className='outline-none w-1/6 border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange pl-2 h-8 rounded-sm ' name='lastname' placeholder='Enter last name' onChange={handleChange} value={teacherData.lastname} required />
@@ -119,7 +121,7 @@ const AdminDashboard = () => {
               {!editMode && (
                 <input type='text' className='outline-none w-1/6 border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange pl-2 h-8 rounded-sm ' name='password' placeholder='Enter password' onChange={handleChange} value={teacherData.password} required />
               )}
-              <button type='submit' className='text-white bg-orange w-1/6 rounded-sm font-bold p-1 '>{editMode ? 'Update' : 'Save'}</button>
+              <button type='submit' className='text-white bg-orange w-1/6 rounded-sm font-bold p-1 '  >{editMode ? 'Update' : 'Save'}</button>
             </form>
           </div>
         </div>
@@ -189,11 +191,12 @@ const AdminDashboard = () => {
             }
           </div>
         </div>
+        <Toaster />
       </div>) :
 
       //If not admin
       (
-        <Unauthorized />
+          <Unauthorized />
       )
   )
 }

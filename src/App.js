@@ -1,55 +1,19 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Body from "./components/Body";
-import Login from "./components/Login";
-import Register from "./components/StudentRegistration";
-import Home from "./components/Home";
-import AdminDashboard from "./components/AdminDashboard";
-import TeacherDashboard from "./components/TeacherDashboard";
-import StudentDashboard from "./components/StudentDashboard";
+import React from "react";
+import { Outlet } from "react-router-dom";
+import SideMenu from "./components/SideMenu";
+import { FirebaseProvider } from "./utils/Firebase";
 
-function App() {
-
-  const appRouter = createBrowserRouter([
-    {
-      path: '/',
-      element: <Body />,
-      errorElement: <h1>404 Error</h1>,
-      children: [
-        {
-          path: '/',
-          element: <Home />
-        },
-        {
-          path: 'login',
-          element: <Login />
-        },
-        {
-          path: 'register',
-          element: <Register />
-        },
-        {
-          path: 'admin',
-          element: <AdminDashboard />
-        },
-        {
-          path: 'teacher',
-          element: <TeacherDashboard />
-        },
-        {
-          path: 'Student',
-          element: <StudentDashboard />
-        },
-      ]
-
-    }
-  ])
-
-
+const App = () => {
   return (
-    <div>
-      <RouterProvider router={appRouter} />
-    </div>
+    <FirebaseProvider>
+      <div className="bg-platinum h-screen flex overflow-scroll">
+        <SideMenu />
+        <div className="w-[85%] overflow-scroll">
+          <Outlet />
+        </div>
+      </div>
+    </FirebaseProvider>
   );
-}
+};
 
 export default App;

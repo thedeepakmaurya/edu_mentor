@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useFirebase } from '../utils/Firebase'
 import { useNavigate } from 'react-router-dom';
+import { Toaster, toast } from 'react-hot-toast';
 
 const Login = () => {
 
@@ -20,7 +21,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await firebase.signinUser(formData.email, formData.password);
-
+    toast.success('Logged in successfully!')
   }
 
   useEffect(() => {
@@ -56,6 +57,7 @@ const Login = () => {
           <button className='mt-4 w-full bg-orange text-white rounded-sm p-2 '>Login</button>
         </form>
       </div>
+      <Toaster />
     </div>
   )
 }
