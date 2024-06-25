@@ -12,7 +12,7 @@ const StudentDashboard = () => {
   const [teachers, setTeachers] = useState([]);
   const [filterdTeachers, setFilterdTeachers] = useState([]);
   const [appointments, setAppointments] = useState([]);
-  const [filteredAppointments, setFilteredAppointments] = useState( );
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [date, setDate] = useState({});
 
 
@@ -26,7 +26,7 @@ const StudentDashboard = () => {
       appoint = appointments.filter((appointments) => appointments.data().studentID === firebase.user.uid);
       setFilteredAppointments(appoint)
     }
-  }, [])
+  }, [appointments, search, firebase, teachers])
 
 
 

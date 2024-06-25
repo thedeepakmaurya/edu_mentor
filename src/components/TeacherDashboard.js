@@ -8,7 +8,7 @@ const TeacherDashboard = () => {
   const firebase = useFirebase();
 
   const [appointments, setAppointments] = useState([]);
-  const [filteredAppointments, setFilteredAppointments] = useState();
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [students, setStudents] = useState([]);
   const [teachers, setTeachers] = useState([]);
 
