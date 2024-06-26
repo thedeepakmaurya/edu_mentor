@@ -22,19 +22,21 @@ const SideMenu = () => {
             </div>
             <div className='flex flex-col gap-2 w-full pl-6'>
                 <h2 className='font-semibold text-lg '><i className='bx bx-home-alt-2 pr-3 align-middle'></i> <Link to='/'>Home</Link></h2>
-                <div onClick={handleClick} >
-                    <h2 className='font-semibold text-lg cursor-pointer'><i className='bx bx-stats pr-3 align-middle'></i> Dashboard<i className='bx bx-chevron-down align-middle pl-5'></i></h2>
-                    {
-                        isDropdown &&
-                        (
-                            <div className='pl-7 mt-2 w-full'>
-                                <h2 className='font-semibold text-lg '><i className='bx bx-cog pr-3 align-middle'></i> <Link to='/admin'>Admin</Link></h2>
-                                <h2 className='font-semibold text-lg '><i className='bx bx-laptop pr-3 align-middle'></i> <Link to='/teacher'>Teacher</Link></h2>
-                                <h2 className='font-semibold text-lg '><i className='bx bx-book-reader pr-3 align-middle'></i> <Link to='/student'>Student</Link></h2>
-                            </div>
-                        )
-                    }
-                </div>
+                {
+                    firebase.isLoggedIn && (<div onClick={handleClick} >
+                        <h2 className='font-semibold text-lg cursor-pointer'><i className='bx bx-stats pr-3 align-middle'></i> Dashboard<i className='bx bx-chevron-down align-middle pl-5'></i></h2>
+                        {
+                            isDropdown &&
+                            (
+                                <div className='pl-7 mt-2 w-full'>
+                                    <h2 className='font-semibold text-lg '><i className='bx bx-cog pr-3 align-middle'></i> <Link to='/admin'>Admin</Link></h2>
+                                    <h2 className='font-semibold text-lg '><i className='bx bx-laptop pr-3 align-middle'></i> <Link to='/teacher'>Teacher</Link></h2>
+                                    <h2 className='font-semibold text-lg '><i className='bx bx-book-reader pr-3 align-middle'></i> <Link to='/student'>Student</Link></h2>
+                                </div>
+                            )
+                        }
+                    </div>)
+                }
                 {!firebase.isLoggedIn && (
                     <>
                         <h2 className='font-semibold text-lg '><i className='bx bx-user pr-3 align-middle'></i> <Link to='/login'>Login</Link></h2>
@@ -44,7 +46,7 @@ const SideMenu = () => {
             </div>
 
             <div className='w-[14%] pl-6  bottom-5 fixed'>
-                {firebase.isLoggedIn && <h2 className='font-semibold text-lg cursor-pointer' onClick={() => {firebase.signOutUser(); toast.success('Logout Successfully'); navigate('/');} }><i className='bx bx-log-out pr-3 align-middle'></i> Logout</h2>}
+                {firebase.isLoggedIn && <h2 className='font-semibold text-lg cursor-pointer' onClick={() => { firebase.signOutUser(); toast.success('Logout Successfully'); navigate('/'); }}><i className='bx bx-log-out pr-3 align-middle'></i> Logout</h2>}
                 <Toaster />
             </div>
         </div>
