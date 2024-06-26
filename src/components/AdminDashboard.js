@@ -108,6 +108,7 @@ const AdminDashboard = () => {
     firebase.listAllAppointments().then((appointments) => setAppointments(appointments.docs))
   }, [firebase])
 
+
   if(!firebase.user){
     return <Loader/>
   }

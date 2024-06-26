@@ -61,7 +61,6 @@ export const FirebaseProvider = ({ children }) => {
                 setRole(null);
             }
         });
-
     }, []);
 
     const isLoggedIn = user ? true : false;

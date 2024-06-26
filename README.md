@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+<h1 align="center" id="title">Edu. Mentor</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center"><img src="https://raw.githubusercontent.com/thedeepakmaurya/edumentor/master/public/apple-icon.png" alt="project-image"></p>
 
-## Available Scripts
+<p id="description">This repository contains the code for a Teacher-Student Booking Appointment System built using Firebase React and Tailwind CSS. The system allows teachers and students to manage and book appointments efficiently.</p>
 
-In the project directory, you can run:
+<h2>🚀 Demo</h2>
 
-### `npm start`
+[edu.deepakmaurya.us](edu.deepakmaurya.us)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<h2>Project Screenshots:</h2>
+<p float="left">
+<img src="https://media.licdn.com/dms/image/D5622AQEFrppwTH4v3w/feedshare-shrink_2048_1536/0/1719327746479?e=1722470400&amp;v=beta&amp;t=bHXQYvnzPz4EXaRSYBYIuXw7nT6teZ0HNZvA-8XgjD0" alt="project-screenshot" width="200" height="100/">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="https://media.licdn.com/dms/image/D5622AQFNMsGqhBhe7Q/feedshare-shrink_2048_1536/0/1719327746212?e=1722470400&amp;v=beta&amp;t=5P6AizNlc728dDc76HNeXP_hf62rfwyBJUt0OnVgncg" alt="project-screenshot" width="200" height="100/">
 
-### `npm test`
+<img src="https://media.licdn.com/dms/image/D5622AQEbCp3Q8fy9gg/feedshare-shrink_2048_1536/0/1719327746207?e=1722470400&amp;v=beta&amp;t=TU2pAwQi9fhNCtWQbfTNEv158B7U_zvyZA-yF0cCEl8" alt="project-screenshot" width="200" height="100/">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://media.licdn.com/dms/image/D5622AQHf2L7Y0rkItQ/feedshare-shrink_2048_1536/0/1719327746212?e=1722470400&amp;v=beta&amp;t=7reE0K0p8oS5AciiTm4-gpfxkVYuJgl_bC3H1YjhdL8" alt="project-screenshot" width="200" height="100/">
 
-### `npm run build`
+<img src="https://media.licdn.com/dms/image/D5622AQGbIrbEnleYtg/feedshare-shrink_2048_1536/0/1719327746179?e=1722470400&amp;v=beta&amp;t=Wt0A2wSTDl0eXf__YZS2vwgswZuc9ho4iteXDuzJKNo" alt="project-screenshot" width="200" height="100/">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img src="https://media.licdn.com/dms/image/D5622AQFAqqkNSyhc6Q/feedshare-shrink_2048_1536/0/1719327746644?e=1722470400&amp;v=beta&amp;t=GE1whpqjk47Tcx5q8bEZ4myuvPIuNNxwGkyjas-J3bk" alt="project-screenshot" width="200" height="100/">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img src="https://media.licdn.com/dms/image/D5622AQEWNn4wuEiQMg/feedshare-shrink_2048_1536/0/1719327746420?e=1722470400&amp;v=beta&amp;t=73USnID_s66r0Qb7UiM3AyGgbu1200djWPoB0huSsnM" alt="project-screenshot" width="200" height="100/">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img src="https://media.licdn.com/dms/image/D5622AQFfacdgBtloEw/feedshare-shrink_2048_1536/0/1719327746233?e=1722470400&amp;v=beta&amp;t=9i4O-omVVQGRkl3zjt3x0P1gDWAuVMVOsNC9OSF6Wcc" alt="project-screenshot" width="200" height="100/">
+</p>

@@ -44,7 +44,6 @@ const TeacherDashboard = () => {
     return 'Unknown';
   };
 
-
   if(!firebase.user){
     return <Loader/>
   }
