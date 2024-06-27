@@ -51,16 +51,21 @@ export const FirebaseProvider = ({ children }) => {
 
     //chekck if user login or not
     useEffect(() => {
-        onAuthStateChanged(firebaseAuth, async (user) => {
-            if (user) {
-                const userRole = await getUserRole(user.uid);
-                setUser(user);
-                setRole(userRole);
-            } else {
-                setUser(null);
-                setRole(null);
+        const unSubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
+            if (window.location.pathname !== '/register' && window.location.pathname !== '/admin') {
+                if (user) {
+                    const userRole = await getUserRole(user.uid);
+                    setUser(user);
+                    setRole(userRole);
+                } else {
+                    setUser(null);
+                    setRole(null);
+                }
             }
+            return unSubscribe;
+
         });
+
     }, []);
 
     const isLoggedIn = user ? true : false;
@@ -78,7 +83,6 @@ export const FirebaseProvider = ({ children }) => {
             address: address,
             state: state,
             role: role,
-            uid: user.uid
         });
 
     }
@@ -96,7 +100,6 @@ export const FirebaseProvider = ({ children }) => {
             department: department,
             subject: subject,
             role: role,
-            uid: user.uid
         });
 
     }

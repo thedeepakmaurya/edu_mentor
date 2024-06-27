@@ -37,8 +37,10 @@ const AdminDashboard = () => {
     e.preventDefault();
     if (editMode) {
       await handleUpdateTeacher(currentTeacherId);
+      toast.success('Teacher data has successfully updated')
     } else {
       await firebase.signupTeacher(teacherData.email, teacherData.password, teacherData.role, teacherData.firstname, teacherData.lastname, teacherData.department, teacherData.subject);
+      toast.success('Teacher has successfully registered')
     }
     setTeacherData({
       firstname: '',
