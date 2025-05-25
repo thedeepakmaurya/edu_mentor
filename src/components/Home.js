@@ -19,8 +19,8 @@ const Home = () => {
                     <img alt='intro' src={intro} />
                 </div>
                 <div className='w-1/2 flex flex-col justify-center'>
-                    <h1 className='font-bold text-5xl text-oxfordBlue'>Reserve your <span className='text-orange'>mentors</span> today to enhance your knowledge.</h1>
-                    {firebase.isLoggedIn === false && <button type='button' className='bg-orange mt-2 w-40 text-white font-bold rounded-sm p-2 pl-4 pr-4' onClick={handleClick}>
+                    <h1 className='font-bold text-4xl text-oxfordBlue'>Reserve your <span className='text-orange'>mentors</span> today to enhance your knowledge.</h1>
+                    {firebase.isLoggedIn === false && <button type='button' className='bg-orange mt-2 w-40 text-white font-bold rounded-md py-1.5 pl-4 pr-4' onClick={handleClick}>
                         Register Now!
                     </button>}
                 </div>

@@ -80,84 +80,106 @@ const StudentDashboard = () => {
 
         <div className='flex items-center justify-center flex-col m-5'>
 
-          {/* Total Appointments & Students */}
-          <div className='flex w-full gap-5'>
-            <div className='flex flex-col items-center justify-center w-1/2 bg-orange h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
-              <h1 className='font-light text-xl text-white'>APPOINTMENTS</h1>
-              <p className='font-bold text-2xl text-white'>{filteredAppointments.length}</p>
-            </div>
-            <div className='flex flex-col items-center justify-center w-1/2 bg-oxfordBlue h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
-              <h1 className='font-light text-xl text-white'>TEACHERS</h1>
-              <p className='font-bold text-2xl text-white'>{teachers.length}</p>
-            </div>
-          </div>
+  {/* Total Appointments & Teachers */}
+  <div className='flex w-full gap-5'>
+    <div className='flex flex-col items-center justify-center w-1/2 bg-orange h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
+      <h1 className='font-light text-lg text-white'>APPOINTMENTS</h1>
+      <p className='font-bold text-3xl text-white'>{filteredAppointments.length}</p>
+    </div>
+    <div className='flex flex-col items-center justify-center w-1/2 bg-oxfordBlue h-20 rounded-lg shadow-lg shadow-gray-400 p-2'>
+      <h1 className='font-light text-lg text-white'>TEACHERS</h1>
+      <p className='font-bold text-3xl text-white'>{teachers.length}</p>
+    </div>
+  </div>
 
-          {/* Search bar */}
-          <div className='flex items-center justify-center h-14 rounded-lg  shadow-lg shadow-gray-400 w-full bg-oxfordBlue gap-5 mt-5'>
-            <input className='w-[70%] text-white border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange outline-none' type='text' name='search' onChange={(e) => setSearch(e.target.value)} value={search} placeholder='Search mentor/ subject/ department' required />
-          </div>
+  {/* Search bar */}
+  <div className='flex items-center justify-center h-14 rounded-lg shadow-lg shadow-gray-400 w-full bg-oxfordBlue gap-5 mt-5'>
+    <input
+      className='w-[70%] text-white text-sm border-b border-b-oxfordBlueLight bg-oxfordBlue focus:border-b-orange outline-none'
+      type='text'
+      name='search'
+      onChange={(e) => setSearch(e.target.value)}
+      value={search}
+      placeholder='Search mentor/ subject/ department'
+      required
+    />
+  </div>
 
-          {/* teacher list */}
-          <div className=' w-full m-5 bg-white h-auto overflow-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
-            <h1 className='font-light text-xl'>MENTOR LIST</h1>
-            <div className='mt-2 w-full'>
-              <div className='flex items-center gap-10 font-semibold'>
-                <h2 className='w-5'>No.</h2>
-                <h2 className='w-24'> First Name</h2>
-                <h2 className='w-24'> Last Name</h2>
-                <h2 className='w-24'> Department</h2>
-                <h2 className='w-24'> Subject</h2>
-                <h2 className='w-auto'> Appointment</h2>
-              </div>
-              {
-                filterdTeachers.map((teacher, index) => {
-                  return (
-                    <div className='flex gap-10' key={teacher.id} >
-                      <form onSubmit={(e) => handleAppointment(e, teacher.id)} className='flex items-center gap-10 text-nowrap'>
-                        <input className='w-5' value={index + 1} readOnly />
-                        <input className='w-24' value={teacher.data().firstname} readOnly />
-                        <input className='w-24' value={teacher.data().lastname} readOnly />
-                        <input className='w-24' value={teacher.data().department} readOnly />
-                        <input className='w-24' value={teacher.data().subject} readOnly />
-                        <input className='w-auto outline-none' type='date' onChange={(e) => handleDateChange(teacher.id, e.target.value)} value={date[teacher.id] || ' '} required />
-                        <button type='submit' className='border-b border-b-oxfordBlue hover:border-b-orange w-20 rounded-sm'>Schedule</button>
-                      </form>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>
+  {/* Mentor list table */}
+  <div className='w-full m-5 bg-white h-auto overflow-x-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
+    <h1 className='font-light text-xl mb-2'>MENTOR LIST</h1>
+    <table className='w-full text-sm text-left'>
+      <thead>
+        <tr className='font-medium border-b'>
+          <th className='px-4 py-3'>No.</th>
+          <th className='px-4 py-3'>First Name</th>
+          <th className='px-4 py-3'>Last Name</th>
+          <th className='px-4 py-3'>Department</th>
+          <th className='px-4 py-3'>Subject</th>
+          <th className='px-4 py-3'>Appointment Date</th>
+          <th className='px-4 py-3'>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filterdTeachers.map((teacher, index) => (
+          <tr key={teacher.id} className='border-b hover:bg-gray-100'>
+            <td className='px-4 py-3'>{index + 1}</td>
+            <td className='px-4 py-3 capitalize'>{teacher.data().firstname}</td>
+            <td className='px-4 py-3 capitalize'>{teacher.data().lastname}</td>
+            <td className='px-4 py-3 capitalize'>{teacher.data().department}</td>
+            <td className='px-4 py-3 capitalize'>{teacher.data().subject}</td>
+            <td className='px-4 py-3'>
+              <input
+                type='date'
+                className='outline-none border rounded px-2 py-1'
+                onChange={(e) => handleDateChange(teacher.id, e.target.value)}
+                value={date[teacher.id] || ''}
+                required
+              />
+            </td>
+            <td className='px-4 py-3'>
+              <button
+                onClick={(e) => handleAppointment(e, teacher.id)}
+                className='bg-orange text-white px-3 py-1 rounded hover:bg-orange-600'
+              >
+                Schedule
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
-          {/* Scheduled Appointment Details */}
-          <div className=' w-full m-5 bg-white h-auto overflow-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
-            <h1 className='font-light text-xl'>SCHEDULED APPOINTMENTS</h1>
-            <div className='mt-2 w-full'>
-              <div className='flex items-center gap-10 font-semibold'>
-                <h2 className='w-5'>No.</h2>
-                <h2 className='w-24'> Mentor</h2>
-                <h2 className='w-24'> Subject</h2>
-                <h2 className='w-24'> Date</h2>
-              </div>
-              {
-                Array.isArray(filteredAppointments) && filteredAppointments.map((appointment, index) => {
-                  return (
-                    <div className='flex gap-10' key={appointment.id} >
-                      <form className='flex items-center gap-10 text-nowrap'>
-                        <input className='w-5' value={index + 1} readOnly />
-                        <input className='w-24' value={getTeacherNameById(appointment.data().teacherId)} readOnly />
-                        <input className='w-24' value={getSubjectByTeacherId(appointment.data().teacherId)} readOnly />
-                        <input className='w-24 outline-none' value={appointment.data().date} readOnly />
-                      </form>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>
+  {/* Scheduled Appointments table */}
+  <div className='w-full m-5 bg-white h-auto overflow-x-scroll rounded-lg p-5 shadow-lg shadow-gray-400'>
+    <h1 className='font-light text-xl mb-2'>SCHEDULED APPOINTMENTS</h1>
+    <table className='w-full text-sm text-left'>
+      <thead>
+        <tr className='font-medium border-b'>
+          <th className='px-4 py-3'>No.</th>
+          <th className='px-4 py-3'>Mentor</th>
+          <th className='px-4 py-3'>Subject</th>
+          <th className='px-4 py-3'>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Array.isArray(filteredAppointments) && filteredAppointments.map((appointment, index) => (
+          <tr key={appointment.id} className='border-b hover:bg-gray-100'>
+            <td className='px-4 py-3'>{index + 1}</td>
+            <td className='px-4 py-3 capitalize'>{getTeacherNameById(appointment.data().teacherId)}</td>
+            <td className='px-4 py-3 capitalize'>{getSubjectByTeacherId(appointment.data().teacherId)}</td>
+            <td className='px-4 py-3'>{appointment.data().date}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
-          <Toaster />
-        </div>
+  <Toaster />
+
+</div>
+
       </div>)
       :
       (

@@ -21,8 +21,8 @@ const Header = () => {
 
   return (
     <div className='flex justify-between h-14 sticky top-0 bg-white items-center '>
-      <h1 className='text-black font-medium text-3xl pl-3'>{userDashboard()}</h1>
-      <NavLink to='/user'><i className='bx bxs-user-detail bx-md pr-3 cursor-pointer'></i></NavLink>
+      <h1 className='text-black font-medium text-xl pl-3'>{userDashboard()}</h1>
+      <NavLink to='/user'><i className='bx bxs-user-detail bx-sm pr-3 cursor-pointer'></i></NavLink>
     </div>
   )
 }
